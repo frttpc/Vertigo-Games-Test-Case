@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Frttpc;
 
-public class PrizePoolSO : MonoBehaviour
+[CreateAssetMenu(fileName = "PrizePoolSO", menuName = "Scriptable Objects/PrizePoolSO")]
+public class PrizePoolSO : ScriptableObject
 {
     [SerializeField] private Prize[] prizePool = new Prize[6];
 
