@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db99ef791eb06bc4397c42dc70ad9e06, type: 3}
+  m_Name: SO_PrizePool_Temp 1
+  m_EditorClassIdentifier: 
+  prizePool:
+  - prizeSO: {fileID: 11400000, guid: fb867b91f4510c146b600d1abd70fed3, type: 2}
+    dropAmount: 20
+  - prizeSO: {fileID: 11400000, guid: 9442cbcfff548684984ec93189bd3b60, type: 2}
+    dropAmount: 25
+  - prizeSO: {fileID: 11400000, guid: e0dec0c9f7bf2c9408278c77f1700da8, type: 2}
+    dropAmount: 100
+  - prizeSO: {fileID: 11400000, guid: e234b46d031dc0046a3e18dadb2e0551, type: 2}
+    dropAmount: 30
+  - prizeSO: {fileID: 11400000, guid: 58cbe7919e8325e4490b206e588a04fc, type: 2}
+    dropAmount: 50
+  - prizeSO: {fileID: 11400000, guid: 76251de3f91fc2e468f9ad195a51e60f, type: 2}
+    dropAmount: 200
+  - prizeSO: {fileID: 11400000, guid: f44960337747e5a4894bcaf74e3a6da7, type: 2}
+    dropAmount: 30
+  - prizeSO: {fileID: 11400000, guid: ac04dee30dd4d4d4a9f6e74fcfa21c21, type: 2}
+    dropAmount: 1

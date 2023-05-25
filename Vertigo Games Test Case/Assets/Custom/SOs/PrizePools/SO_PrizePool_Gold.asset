@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: SO_PrizePool_Gold
   m_EditorClassIdentifier: 
   prizePool:
-  - prizeSO: {fileID: 0}
-    dropAmount: 0
-  - prizeSO: {fileID: 0}
-    dropAmount: 0
-  - prizeSO: {fileID: 0}
-    dropAmount: 0
-  - prizeSO: {fileID: 0}
-    dropAmount: 0
-  - prizeSO: {fileID: 0}
-    dropAmount: 0
-  - prizeSO: {fileID: 0}
-    dropAmount: 0
+  - prizeSO: {fileID: 11400000, guid: f44960337747e5a4894bcaf74e3a6da7, type: 2}
+    dropAmount: 10
+  - prizeSO: {fileID: 11400000, guid: 76251de3f91fc2e468f9ad195a51e60f, type: 2}
+    dropAmount: 10
+  - prizeSO: {fileID: 11400000, guid: 349d6c16bfca48f47929d0a7268f62a4, type: 2}
+    dropAmount: 5
+  - prizeSO: {fileID: 11400000, guid: e234b46d031dc0046a3e18dadb2e0551, type: 2}
+    dropAmount: 5
+  - prizeSO: {fileID: 11400000, guid: e0dec0c9f7bf2c9408278c77f1700da8, type: 2}
+    dropAmount: 500
+  - prizeSO: {fileID: 11400000, guid: 9442cbcfff548684984ec93189bd3b60, type: 2}
+    dropAmount: 20
+  - prizeSO: {fileID: 11400000, guid: fb867b91f4510c146b600d1abd70fed3, type: 2}
+    dropAmount: 5
+  - prizeSO: {fileID: 11400000, guid: 9442cbcfff548684984ec93189bd3b60, type: 2}
+    dropAmount: 10
