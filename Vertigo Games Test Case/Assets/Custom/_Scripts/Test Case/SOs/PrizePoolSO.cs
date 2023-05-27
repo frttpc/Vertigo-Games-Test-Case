@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Frttpc;
 
 [CreateAssetMenu(fileName = "PrizePoolSO", menuName = "Scriptable Objects/PrizePoolSO")]
 public class PrizePoolSO : ScriptableObject
@@ -14,4 +11,9 @@ public struct Prize
 {
     public PrizeSO prizeSO;
     public int dropAmount;
+}
+
+public enum Rewards
+{
+
 }

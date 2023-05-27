@@ -39,9 +39,11 @@ public class SpinManager : MonoBehaviour
 
     public void Spin()
     {
+        if (isSpinning) return;
+         
         isSpinning = true;
 
-        int prizeIndex = Random.Range(0, 8);
+        int prizeIndex = Random.Range(0, prizeCount);
         chosenPrize = prizePoolListSO.prizePoolList[currentZone].prizePool[prizeIndex];
 
         Vector3 targetRotation = spinRotation * spinDuration + new Vector3 (0, 0, prizeIndex * 45f);
@@ -53,7 +55,7 @@ public class SpinManager : MonoBehaviour
             {
                 isSpinning = false;
 
-                UIManager.Instance.ChangeToResultScreen();
+                UIManager.Instance.ChangeToCardScreen();
             });
     }
 }

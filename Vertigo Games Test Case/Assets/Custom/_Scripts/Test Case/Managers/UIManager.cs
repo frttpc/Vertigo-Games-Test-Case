@@ -6,6 +6,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject cardScreen;
     [SerializeField] private GameObject resultScreen;
 
     [Header("Win")]
@@ -20,6 +21,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject bombCard;
     [SerializeField] private GameObject failButtons;
 
+    [Header("Warning")]
+    [SerializeField] private GameObject warning;
+
     public static UIManager Instance;
 
     private void Awake()
@@ -27,10 +31,18 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
+    public void ChangeToCardScreen()
+    {
+        cardScreen.SetActive(true);
+    }
+
+    public void ChangeToSpinScreen()
+    {
+        cardScreen.SetActive(false);
+    }
+
     public void ChangeToResultScreen()
     {
         resultScreen.SetActive(true);
-
-
     }
 }

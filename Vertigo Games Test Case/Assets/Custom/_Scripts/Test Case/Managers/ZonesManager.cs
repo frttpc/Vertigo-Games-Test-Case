@@ -8,8 +8,8 @@ using Frttpc;
 public class ZonesManager : MonoBehaviour
 {
     [Header("Zone Prefabs")]
-    [SerializeField] private GameObject normalZonePrefab;
-    [SerializeField] private GameObject safeZonePrefab;
+    [SerializeField] private Zone normalZonePrefab;
+    [SerializeField] private Zone safeZonePrefab;
 
     [Space]
     [SerializeField] private Transform zonesParent;
@@ -29,7 +29,7 @@ public class ZonesManager : MonoBehaviour
     private void Start()
     {
         int length = SpinManager.Instance.prizePoolListSO.prizePoolList.Count;
-        GameObject newZone;
+        Zone newZone;
 
         for (int i = 0; i < length; i++)
         {
@@ -39,6 +39,8 @@ public class ZonesManager : MonoBehaviour
                 newZone = Instantiate(safeZonePrefab, pos, Quaternion.identity, zonesParent);
             else
                 newZone = Instantiate(normalZonePrefab, pos, Quaternion.identity, zonesParent);
+
+            newZone.SetZoneNumber(i + 1);
 
             newZone.transform.localPosition = pos;
         }
