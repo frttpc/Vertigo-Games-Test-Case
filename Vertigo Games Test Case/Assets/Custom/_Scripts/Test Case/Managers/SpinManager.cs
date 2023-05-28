@@ -7,9 +7,11 @@ public class SpinManager : MonoBehaviour
 {
     public PrizePoolListSO prizePoolListSO;
 
+    private PrizePoolSO currentPrizePoolSO;
+
     [SerializeField] private Transform[] positions = new Transform[8];
 
-    [SerializeField] private GameObject prizePrefab;
+    [SerializeField] private WheelPrize wheelPrizePrefab;
     private Prize chosenPrize;
 
     [Header("Wheel")]
@@ -19,7 +21,7 @@ public class SpinManager : MonoBehaviour
 
     private Vector3 spinRotation = new (0, 0, 360);
     private const int prizeCount = 8;
-    private static readonly int currentZone = 0;
+    private static int currentZone = 0;
     private bool isSpinning;
 
     public static SpinManager Instance;
@@ -33,7 +35,11 @@ public class SpinManager : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            Instantiate(prizePrefab, positions[i]);
+            WheelPrize newWheelPrize = Instantiate(wheelPrizePrefab, positions[i]);
+
+            Prize currentPrize = prizePoolListSO.prizePoolList[currentZone].prizePool[i];
+
+            newWheelPrize.SetWheelPrizeValues(currentPrize.prizeSO.prizeVisual, currentPrize.dropAmount);
         }
     }
 
@@ -55,7 +61,14 @@ public class SpinManager : MonoBehaviour
             {
                 isSpinning = false;
 
-                UIManager.Instance.ChangeToCardScreen();
+                UIManager.Instance.ChangeToCardScreen(chosenPrize, currentZone);
+
+                InventoryManager.Instance.AddRewardsToInventory(chosenPrize.prizeSO.name, chosenPrize.dropAmount);
             });
+    }
+
+    public void IncreaseCurrentZone()
+    {
+        currentZone++;
     }
 }

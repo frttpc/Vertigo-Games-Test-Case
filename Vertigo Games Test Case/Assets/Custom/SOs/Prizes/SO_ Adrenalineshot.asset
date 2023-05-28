@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: Adrenalineshot
   prizeVisual: {fileID: 21300000, guid: 4bbc228f3ab444f4f94ab9f196b301d6, type: 3}
+  rewardType: 1

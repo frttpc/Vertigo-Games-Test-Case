@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: Pills
   prizeVisual: {fileID: 21300000, guid: 251ec35edde24224fa24eba1bbe24352, type: 3}
+  rewardType: 1

@@ -48,6 +48,6 @@ public class ZonesManager : MonoBehaviour
 
     public void ChangeToNextZone()
     {
-        zonesParent.transform.DOLocalMoveX(zonesParent.transform.position.x - gapBetweenZones, switchDuration).SetEase(switchEase).SetRecyclable();
+        zonesParent.transform.DOLocalMoveX(zonesParent.transform.localPosition.x - gapBetweenZones, switchDuration).SetEase(switchEase).SetRecyclable();
     }
 }

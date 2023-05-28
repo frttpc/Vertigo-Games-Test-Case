@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: C4
   prizeVisual: {fileID: 21300000, guid: 3b592c079cac56c47b0018eaa1739d94, type: 3}
+  rewardType: 1

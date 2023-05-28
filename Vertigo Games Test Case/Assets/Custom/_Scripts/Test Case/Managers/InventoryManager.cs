@@ -15,6 +15,8 @@ public class InventoryManager : MonoBehaviour
 
     public void AddRewardsToInventory(string reward, int amount)
     {
+        if (reward == "Bomb") return;
+
         if (inventory.ContainsKey(reward))
         {
             inventory[reward] += amount;

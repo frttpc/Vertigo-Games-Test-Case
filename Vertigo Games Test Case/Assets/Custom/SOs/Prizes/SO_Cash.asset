@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: Cash
   prizeVisual: {fileID: 21300000, guid: 49a643363657c96449c9a096fe06744c, type: 3}
+  rewardType: 1

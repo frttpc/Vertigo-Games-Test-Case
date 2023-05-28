@@ -13,7 +13,8 @@ public struct Prize
     public int dropAmount;
 }
 
-public enum Rewards
+public enum RewardType
 {
-
+    Bomb,
+    Prize
 }

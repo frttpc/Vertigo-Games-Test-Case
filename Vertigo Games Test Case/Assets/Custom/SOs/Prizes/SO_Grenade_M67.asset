@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: Grenade_M67
   prizeVisual: {fileID: 21300000, guid: 8f94c39dcc175b04a9102fd10e0b19cd, type: 3}
+  rewardType: 1

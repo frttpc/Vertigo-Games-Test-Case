@@ -5,4 +5,5 @@ public class PrizeSO : ScriptableObject
 {
     public string prizeName;
     public Sprite prizeVisual;
+    public RewardType rewardType;
 }
