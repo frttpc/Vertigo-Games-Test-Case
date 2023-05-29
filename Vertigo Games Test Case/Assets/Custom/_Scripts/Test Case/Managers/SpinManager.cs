@@ -5,14 +5,14 @@ using DG.Tweening;
 
 public class SpinManager : MonoBehaviour
 {
-    public PrizePoolListSO prizePoolListSO;
-
+    public PrizePoolsSO prizePoolsSO;
     private PrizePoolSO currentPrizePoolSO;
-
-    [SerializeField] private Transform[] positions = new Transform[8];
-
-    [SerializeField] private WheelPrize wheelPrizePrefab;
     private Prize chosenPrize;
+
+    [Header("Prize")]
+    [SerializeField] private PrizePrefab wheelPrizePrefab;
+    [SerializeField] private Transform[] prizePositions = new Transform[8];
+    private List<PrizePrefab> wheelPrizeList = new();
 
     [Header("Wheel")]
     [SerializeField] private GameObject wheel;
@@ -21,7 +21,6 @@ public class SpinManager : MonoBehaviour
 
     private Vector3 spinRotation = new (0, 0, 360);
     private const int prizeCount = 8;
-    private static int currentZone = 0;
     private bool isSpinning;
 
     public static SpinManager Instance;
@@ -33,14 +32,9 @@ public class SpinManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 8; i++)
-        {
-            WheelPrize newWheelPrize = Instantiate(wheelPrizePrefab, positions[i]);
+        AssignCurrentPrizePoolSO();
 
-            Prize currentPrize = prizePoolListSO.prizePoolList[currentZone].prizePool[i];
-
-            newWheelPrize.SetWheelPrizeValues(currentPrize.prizeSO.prizeVisual, currentPrize.dropAmount);
-        }
+        Initialize();
     }
 
     public void Spin()
@@ -50,7 +44,7 @@ public class SpinManager : MonoBehaviour
         isSpinning = true;
 
         int prizeIndex = Random.Range(0, prizeCount);
-        chosenPrize = prizePoolListSO.prizePoolList[currentZone].prizePool[prizeIndex];
+        chosenPrize = currentPrizePoolSO.prizePool[prizeIndex];
 
         Vector3 targetRotation = spinRotation * spinDuration + new Vector3 (0, 0, prizeIndex * 45f);
 
@@ -61,14 +55,38 @@ public class SpinManager : MonoBehaviour
             {
                 isSpinning = false;
 
-                UIManager.Instance.ChangeToCardScreen(chosenPrize, currentZone);
+                UIManager.Instance.ChangeToCardScreen(chosenPrize);
 
-                InventoryManager.Instance.AddRewardsToInventory(chosenPrize.prizeSO.name, chosenPrize.dropAmount);
+                InventoryManager.Instance.AddRewardsToInventory(chosenPrize);
             });
     }
 
-    public void IncreaseCurrentZone()
+    public void ChangeToNextZone()
     {
-        currentZone++;
+        AssignCurrentPrizePoolSO();
+        ChangeWheelPrizeVisuals();
+    }
+
+    private void AssignCurrentPrizePoolSO()
+    {
+        currentPrizePoolSO = prizePoolsSO.prizePools[ZonesManager.Instance.currentZone];
+    }
+
+    private void ChangeWheelPrizeVisuals()
+    {
+        for (int i = 0; i < prizeCount; i++)
+        {
+            Prize currentPrize = currentPrizePoolSO.prizePool[i];
+            wheelPrizeList[i].SetPrizeValues(currentPrize.prizeSO.prizeVisual, currentPrize.dropAmount);
+        }
+    }
+
+    private void Initialize()
+    {
+        for (int i = 0; i < prizeCount; i++)
+        {
+            wheelPrizeList.Add(Instantiate(wheelPrizePrefab, prizePositions[i]));
+        }
+        ChangeWheelPrizeVisuals();
     }
 }

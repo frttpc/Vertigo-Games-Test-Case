@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    private Dictionary<string, int> inventory = new();
+    public readonly Dictionary<Sprite, int> inventory = new();
 
     public static InventoryManager Instance;
 
@@ -13,17 +13,22 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddRewardsToInventory(string reward, int amount)
+    public void AddRewardsToInventory(Prize reward)
     {
-        if (reward == "Bomb") return;
+        if (reward.prizeSO.name == "Bomb") return;
 
-        if (inventory.ContainsKey(reward))
+        if (reward.prizeSO.name == "Money")
+            UIManager.Instance.IncreaseMoney(reward.dropAmount);
+        else if (reward.prizeSO.name == "Gold")
+            UIManager.Instance.IncreaseGold(reward.dropAmount);
+
+        if (inventory.ContainsKey(reward.prizeSO.prizeVisual))
         {
-            inventory[reward] += amount;
+            inventory[reward.prizeSO.prizeVisual] += reward.dropAmount;
         }
         else
         {
-            inventory.Add(reward, amount);
+            inventory.Add(reward.prizeSO.prizeVisual, reward.dropAmount);
         }
     }
 }

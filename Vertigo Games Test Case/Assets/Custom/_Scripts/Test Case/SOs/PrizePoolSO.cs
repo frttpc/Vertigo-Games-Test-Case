@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PrizePoolSO", menuName = "Scriptable Objects/PrizePoolSO")]
+[CreateAssetMenu(fileName = "PrizePoolSO", menuName = "Scriptable Objects/PrizePool")]
 public class PrizePoolSO : ScriptableObject
 {
     public Prize[] prizePool = new Prize[8];

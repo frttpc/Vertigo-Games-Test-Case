@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Frttpc;
 
 public class WheelManager : MonoBehaviour
 {
@@ -28,12 +25,33 @@ public class WheelManager : MonoBehaviour
         Instance = this;
     }
 
+    public void ChangeWheelVisuals()
+    {
+        int zoneNumber = ZonesManager.Instance.currentZone;
+
+        if (zoneNumber % 5 == 0)
+        {
+            if(zoneNumber == 30)
+            {
+                TurnWheelGold();
+            }
+            else
+            {
+                TurnWheelSilver();
+            }
+        }
+        else
+        {
+            TurnWheelBronze();
+        }
+    }
+
     public void TurnWheelBronze()
     {
         wheel_value.sprite = bronzeWheelSprite;
         pin_value.sprite = bronzePinSprite;
     }
-    
+
     public void TurnWheelSilver()
     {
         wheel_value.sprite = silverWheelSprite;

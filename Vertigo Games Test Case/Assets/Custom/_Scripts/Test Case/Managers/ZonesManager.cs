@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Frttpc;
 
 public class ZonesManager : MonoBehaviour
 {
     [Header("Zone Prefabs")]
     [SerializeField] private Zone normalZonePrefab;
     [SerializeField] private Zone safeZonePrefab;
+    [SerializeField] private Zone goldZonePrefab;
 
     [Space]
     [SerializeField] private Transform zonesParent;
@@ -18,6 +16,8 @@ public class ZonesManager : MonoBehaviour
     [Header("Switch")]
     [SerializeField] [Range(0, 2)] private float switchDuration;
     [SerializeField] private Ease switchEase;
+
+    public int currentZone { get; private set; } = 0;
 
     public static ZonesManager Instance;
 
@@ -28,20 +28,29 @@ public class ZonesManager : MonoBehaviour
 
     private void Start()
     {
-        int length = SpinManager.Instance.prizePoolListSO.prizePoolList.Count;
-        Zone newZone;
+        int length = SpinManager.Instance.prizePoolsSO.prizePools.Count;
+        Zone newZonePrefab;
 
-        for (int i = 0; i < length; i++)
+        for (int i = 1; i < length + 1; i++)
         {
-            Vector3 pos = new (gapBetweenZones * i, 0, 0);
+            Vector3 pos = new (gapBetweenZones * (i-1), 0, 0);
 
-            if (i % 5 == 0)
-                newZone = Instantiate(safeZonePrefab, pos, Quaternion.identity, zonesParent);
+            if (i % 5 == 0 || i == 1)
+            {
+                if (i == 30)
+                {
+                    newZonePrefab = goldZonePrefab;
+                }
+                else
+                {
+                    newZonePrefab = safeZonePrefab;
+                }
+            }
             else
-                newZone = Instantiate(normalZonePrefab, pos, Quaternion.identity, zonesParent);
+                newZonePrefab = normalZonePrefab;
 
-            newZone.SetZoneNumber(i + 1);
-
+            Zone newZone = Instantiate(newZonePrefab, pos, Quaternion.identity, zonesParent);
+            newZone.SetZoneNumber(i);
             newZone.transform.localPosition = pos;
         }
     }
@@ -49,5 +58,10 @@ public class ZonesManager : MonoBehaviour
     public void ChangeToNextZone()
     {
         zonesParent.transform.DOLocalMoveX(zonesParent.transform.localPosition.x - gapBetweenZones, switchDuration).SetEase(switchEase).SetRecyclable();
+    }
+
+    private void IncreaseCurrentZone()
+    {
+        currentZone++;
     }
 }
