@@ -13,7 +13,7 @@ public class SceneManager : MonoBehaviour
         Instance = this;
     }
 
-    public void RestartScene()
+    public static void RestartScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }

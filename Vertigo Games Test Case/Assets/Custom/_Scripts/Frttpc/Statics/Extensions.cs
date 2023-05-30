@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Frttpc.Statics
 {
@@ -37,6 +38,12 @@ namespace Frttpc.Statics
             Debug.Log(returnVec);
 
             return returnVec;
+        }
+
+        public static GameObject AddToList(this GameObject obj, List<GameObject> list)
+        {
+            list.Add(obj);
+            return obj;
         }
     }
 }

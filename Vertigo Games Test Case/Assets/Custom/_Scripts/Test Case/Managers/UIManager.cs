@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,27 +10,24 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject resultScreen;
 
     [Header("Win")]
-    [SerializeField] private GameObject prizeResultText;
+    [SerializeField] private GameObject prizeText;
     [SerializeField] private Card defaultPrizeCard;
     [SerializeField] private Card silverPrizeCard;
     [SerializeField] private Card goldPrizeCard;
     [SerializeField] private GameObject rewardButtons;
 
     [Header("Lose")]
-    [SerializeField] private GameObject bombResultText;
+    [SerializeField] private GameObject bombText;
     [SerializeField] private GameObject bombCard;
     [SerializeField] private GameObject failButtons;
 
     [Header("Warning")]
     [SerializeField] private GameObject warning;
+    [SerializeField] [Range(0.5f, 2)] private float warningDuration;
 
     [Header("Currency")]
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI goldText;
-
-    [Header("Result")]
-    [SerializeField] private PrizePrefab resultPrizePrefab;
-    [SerializeField] private Transform resultPrizeParent;
 
     public static UIManager Instance;
 
@@ -40,13 +36,95 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ChangeToCardScreen(Prize prize)
+    private void Update()
+    {
+        if (warning.activeInHierarchy && warningDuration < 0)
+            DisableWarning();
+    }
+
+    public void ChangeToCardScreen()
+    {
+        cardScreen.SetActive(true);
+        ActivateNeeded();
+    }
+
+    public void ChangeToSpinScreen()
+    {
+        cardScreen.SetActive(false);
+        DeactivateAll();
+    }
+
+    public void ChangeToResultScreen()
+    {
+        resultScreen.SetActive(true);
+    }
+
+    private void ActivateLoseScenerio()
+    {
+        bombText.SetActive(true);
+        bombCard.SetActive(true);
+        failButtons.SetActive(true);
+    }
+
+    private void DeactivateLoseScenerio()
+    {
+        bombText.SetActive(false);
+        bombCard.SetActive(false);
+        failButtons.SetActive(false);
+    }
+
+    private void ActivateWinScenerio()
+    {
+        prizeText.SetActive(true);
+        rewardButtons.SetActive(true);
+    }
+
+    private void DeactivateWinScenerio()
+    {
+        prizeText.SetActive(false);
+        rewardButtons.SetActive(false);
+    }
+
+    private void EnableGoldCard(Prize prize)
+    {
+        goldPrizeCard.gameObject.SetActive(true);
+        goldPrizeCard.SetCardValues(prize.prizeSO.prizeVisual, prize.dropAmount);
+    }
+
+    private void EnableSilverCard(Prize prize)
+    {
+        silverPrizeCard.gameObject.SetActive(true);
+        silverPrizeCard.SetCardValues(prize.prizeSO.prizeVisual, prize.dropAmount);
+    }
+
+    private void EnableDefaultCard(Prize prize)
+    {
+        defaultPrizeCard.gameObject.SetActive(true);
+        defaultPrizeCard.SetCardValues(prize.prizeSO.prizeVisual, prize.dropAmount);
+    }
+
+    public void EditCurrency()
+    {
+        goldText.text = InventoryManager.Instance.GetGold().ToString();
+        moneyText.text = InventoryManager.Instance.GetMoney().ToString();
+    }
+
+    public void EnableWarning()
+    {
+        warning.SetActive(true);
+    }
+
+    private void DisableWarning()
+    {
+        warning.SetActive(false);
+    }
+
+    private void ActivateNeeded()
     {
         int zoneNumber = ZonesManager.Instance.currentZone;
+        Prize prize = PrizeManager.chosenPrize;
 
-        cardScreen.SetActive(true);
-
-        if(prize.prizeSO.rewardType == RewardType.Bomb)
+        if (prize.prizeSO.rewardType == RewardType.Bomb)
         {
             ActivateLoseScenerio();
         }
@@ -54,8 +132,8 @@ public class UIManager : MonoBehaviour
         {
             ActivateWinScenerio();
 
-            if (zoneNumber % 5 == 0)
-            { 
+            if (zoneNumber % 5 == 0 || zoneNumber == 1)
+            {
                 if (zoneNumber == 30)
                 {
                     EnableGoldCard(prize);
@@ -72,83 +150,23 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ChangeToSpinScreen()
+    private void DeactivateAll()
     {
-        cardScreen.SetActive(false);
-
-        WheelManager.Instance.ChangeWheelVisuals();
+        DeactivateLoseScenerio();
+        DeactivateWinScenerio();
+        defaultPrizeCard.gameObject.SetActive(false);
+        silverPrizeCard.gameObject.SetActive(false);
+        goldPrizeCard.gameObject.SetActive(false);
     }
 
-    public void ChangeToResultScreen()
+    public enum UIState
     {
-        resultScreen.SetActive(true);
-        ShowResultPrizes();
-    }
-
-    public void ActivateLoseScenerio()
-    {
-        bombResultText.SetActive(true);
-        bombCard.SetActive(true);
-        failButtons.SetActive(true);
-    }
-
-    public void DeactivateLoseScenerio()
-    {
-        bombResultText.SetActive(false);
-        bombCard.SetActive(false);
-        failButtons.SetActive(false);
-    }
-
-    public void ActivateWinScenerio()
-    {
-        prizeResultText.SetActive(true);
-        rewardButtons.SetActive(true);
-    }
-
-    public void DeactivateWinScenerio()
-    {
-        prizeResultText.SetActive(false);
-        rewardButtons.SetActive(false);
-    }
-
-    public void EnableGoldCard(Prize prize)
-    {
-        goldPrizeCard.gameObject.SetActive(true);
-        goldPrizeCard.SetCardValues(prize.prizeSO.prizeVisual, prize.dropAmount);
-    }
-
-    public void EnableSilverCard(Prize prize)
-    {
-        silverPrizeCard.gameObject.SetActive(true);
-        silverPrizeCard.SetCardValues(prize.prizeSO.prizeVisual, prize.dropAmount);
-    }
-
-    public void EnableDefaultCard(Prize prize)
-    {
-        defaultPrizeCard.gameObject.SetActive(true);
-        defaultPrizeCard.SetCardValues(prize.prizeSO.prizeVisual, prize.dropAmount);
-    }
-
-    public void IncreaseMoney(int amount)
-    {
-        moneyText.text = (Int32.Parse(moneyText.text) + amount).ToString();
-    }
-
-    public void IncreaseGold(int amount)
-    {
-        goldText.text = (Int32.Parse(goldText.text) + amount).ToString();
-    }
-
-    public void ShowResultPrizes()
-    {
-        int length = InventoryManager.Instance.inventory.Count;
-
-        Dictionary<Sprite, int>.KeyCollection keys = InventoryManager.Instance.inventory.Keys;
-
-        foreach (var key in keys)
-        {
-            PrizePrefab newResultPrize = Instantiate(resultPrizePrefab, resultPrizeParent);
-            //newResultPrize.SetPrizeValues(key, InventoryManager.Instance.inventory.TryGetValue(key));
-        }
+        Spin,
+        Bomb,
+        DefaultPrize,
+        SilverPrize,
+        GoldPrize,
+        Lose,
+        Win
     }
 }

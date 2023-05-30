@@ -28,7 +28,7 @@ public class ZonesManager : MonoBehaviour
 
     private void Start()
     {
-        int length = SpinManager.Instance.prizePoolsSO.prizePools.Count;
+        int length = PrizeManager.Instance.prizePoolsSO.prizePools.Count;
         Zone newZonePrefab;
 
         for (int i = 1; i < length + 1; i++)
@@ -57,6 +57,7 @@ public class ZonesManager : MonoBehaviour
 
     public void ChangeToNextZone()
     {
+        IncreaseCurrentZone();
         zonesParent.transform.DOLocalMoveX(zonesParent.transform.localPosition.x - gapBetweenZones, switchDuration).SetEase(switchEase).SetRecyclable();
     }
 
