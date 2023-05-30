@@ -56,12 +56,14 @@ public class WheelManager : MonoBehaviour
                 UIManager.Instance.ChangeToCardScreen();
 
                 InventoryManager.Instance.AddRewardsToInventory();
+
+                ResetWheelRotation();
             });
     }
 
     public void ChangeWheelVisuals()
     {
-        int zoneNumber = ZonesManager.Instance.currentZone;
+        int zoneNumber = ZonesManager.Instance.currentZone + 1;
 
         if (zoneNumber % 5 == 0)
         {
@@ -78,6 +80,11 @@ public class WheelManager : MonoBehaviour
         {
             TurnWheelBronze();
         }
+    }
+
+    public void ResetWheelRotation()
+    {
+        wheel.eulerAngles = Vector3.zero;
     }
 
     public void TurnWheelBronze()

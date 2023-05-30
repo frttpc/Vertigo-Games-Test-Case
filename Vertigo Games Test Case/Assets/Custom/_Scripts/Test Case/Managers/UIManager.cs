@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (warning.activeInHierarchy)
+        if (warning.activeSelf)
         {
             if (warningDuration < 0)
             {

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 
 public class ZonesManager : MonoBehaviour
@@ -17,7 +16,7 @@ public class ZonesManager : MonoBehaviour
     [SerializeField] [Range(0, 2)] private float switchDuration;
     [SerializeField] private Ease switchEase;
 
-    public int currentZone { get; private set; } = 1;
+    public int currentZone { get; private set; } = 0;
 
     public static ZonesManager Instance;
 
