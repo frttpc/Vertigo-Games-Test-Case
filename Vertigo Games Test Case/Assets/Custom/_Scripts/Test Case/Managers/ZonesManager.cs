@@ -17,7 +17,7 @@ public class ZonesManager : MonoBehaviour
     [SerializeField] [Range(0, 2)] private float switchDuration;
     [SerializeField] private Ease switchEase;
 
-    public int currentZone { get; private set; } = 0;
+    public int currentZone { get; private set; } = 1;
 
     public static ZonesManager Instance;
 

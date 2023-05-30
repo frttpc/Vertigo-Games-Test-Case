@@ -38,8 +38,17 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (warning.activeInHierarchy && warningDuration < 0)
-            DisableWarning();
+        if (warning.activeInHierarchy)
+        {
+            if (warningDuration < 0)
+            {
+                DisableWarning();
+            }
+            else
+            {
+                warningDuration -= Time.deltaTime;
+            }
+        }
     }
 
     public void ChangeToCardScreen()
