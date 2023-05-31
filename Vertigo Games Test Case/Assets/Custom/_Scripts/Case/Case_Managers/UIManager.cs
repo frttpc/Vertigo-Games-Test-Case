@@ -6,28 +6,36 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Screen")]
     [SerializeField] private GameObject cardScreen;
     [SerializeField] private GameObject resultScreen;
 
-    [Header("Win")]
+    [Header("Texts")]
     [SerializeField] private GameObject prizeText;
+    [SerializeField] private GameObject bombText;
+
+    [Header("Cards")]
+    [SerializeField] private GameObject bombCard;
     [SerializeField] private Card defaultPrizeCard;
     [SerializeField] private Card silverPrizeCard;
     [SerializeField] private Card goldPrizeCard;
-    [SerializeField] private GameObject rewardButtons;
 
-    [Header("Lose")]
-    [SerializeField] private GameObject bombText;
-    [SerializeField] private GameObject bombCard;
+    [Header("Buttons")]
+    [SerializeField] private GameObject quitButton;
+    [SerializeField] private GameObject rewardButtons;
     [SerializeField] private GameObject failButtons;
 
     [Header("Warning")]
     [SerializeField] private GameObject warning;
     [SerializeField] [Range(0.5f, 2)] private float warningDuration;
+    private float warningDurationCounter;
 
     [Header("Currency")]
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI goldText;
+
+    [Space]
+    [SerializeField] private TextMeshProUGUI nextSilverZoneText;
 
     public static UIManager Instance;
 
@@ -40,13 +48,13 @@ public class UIManager : MonoBehaviour
     {
         if (warning.activeSelf)
         {
-            if (warningDuration < 0)
+            if (warningDurationCounter < 0)
             {
                 DisableWarning();
             }
             else
             {
-                warningDuration -= Time.deltaTime;
+                warningDurationCounter -= Time.deltaTime;
             }
         }
     }
@@ -121,6 +129,7 @@ public class UIManager : MonoBehaviour
     public void EnableWarning()
     {
         warning.SetActive(true);
+        warningDurationCounter = warningDuration;
     }
 
     private void DisableWarning()
@@ -130,7 +139,7 @@ public class UIManager : MonoBehaviour
 
     private void ActivateNeeded()
     {
-        int zoneNumber = ZonesManager.Instance.currentZone;
+        int zoneNumber = ZonesManager.Instance.currentZone + 1;
         Prize prize = PrizeManager.chosenPrize;
 
         if (prize.prizeSO.rewardType == RewardType.Bomb)
@@ -150,7 +159,10 @@ public class UIManager : MonoBehaviour
                 else
                 {
                     EnableSilverCard(prize);
+                    quitButton.SetActive(true);
                 }
+
+                EditNextSilverZone();
             }
             else
             {
@@ -166,6 +178,14 @@ public class UIManager : MonoBehaviour
         defaultPrizeCard.gameObject.SetActive(false);
         silverPrizeCard.gameObject.SetActive(false);
         goldPrizeCard.gameObject.SetActive(false);
+        quitButton.SetActive(false);
+    }
+
+    public void EditNextSilverZone()
+    {
+        int number = ZonesManager.Instance.currentZone + 1;
+        if (number % 5 == 0)
+            nextSilverZoneText.text = (number + 5).ToString();
     }
 
     public enum UIState

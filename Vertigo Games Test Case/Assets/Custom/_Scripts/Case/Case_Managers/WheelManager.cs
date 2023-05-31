@@ -75,6 +75,7 @@ public class WheelManager : MonoBehaviour
             {
                 TurnWheelSilver();
             }
+
         }
         else
         {

@@ -44,6 +44,7 @@ public class ZonesManager : MonoBehaviour
                 {
                     newZonePrefab = safeZonePrefab;
                 }
+
             }
             else
                 newZonePrefab = normalZonePrefab;

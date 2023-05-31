@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Frttpc;
 
 public class Button_Revive : MonoBehaviour
 {
@@ -25,7 +22,7 @@ public class Button_Revive : MonoBehaviour
     {
         reviveButton.onClick.AddListener(() => 
         {
-            if(InventoryManager.Instance.HasEnough(reviveCostSO, reviveCostAmount))
+            if(InventoryManager.Instance.TrySpend(reviveCostSO, reviveCostAmount))
             {
                 UIManager.Instance.ChangeToSpinScreen();
             }

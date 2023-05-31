@@ -50,7 +50,7 @@ public class InventoryManager : MonoBehaviour
 
     public int GetGold() => inventory[goldSO];
 
-    public bool HasEnough(PrizeSO prizeSO, int amount)
+    public bool TrySpend(PrizeSO prizeSO, int amount)
     {
         if (inventory[prizeSO] > amount)
         {

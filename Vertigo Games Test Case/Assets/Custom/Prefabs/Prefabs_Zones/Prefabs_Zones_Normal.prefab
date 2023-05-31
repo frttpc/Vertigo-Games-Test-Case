@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7747854172685139998}
   - component: {fileID: 4293856372216833296}
   m_Layer: 5
-  m_Name: Normal Zone
+  m_Name: Prefabs_Zones_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
