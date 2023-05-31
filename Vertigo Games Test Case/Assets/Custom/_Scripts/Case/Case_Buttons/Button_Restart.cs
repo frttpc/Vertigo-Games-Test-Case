@@ -9,11 +9,18 @@ public class Button_Restart : MonoBehaviour
 
     private void OnValidate()
     {
-        restartButton = GetComponent<Button>();
+        SetButton();
     }
 
     private void Awake()
     {
+        SetButton();
+
         restartButton.onClick.AddListener(SceneManager.RestartScene);
+    }
+
+    private void SetButton()
+    {
+        restartButton = GetComponent<Button>();
     }
 }

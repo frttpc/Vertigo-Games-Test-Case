@@ -7,15 +7,22 @@ public class Button_Quit : MonoBehaviour
 
     private void OnValidate()
     {
-        quitButton = GetComponent<Button>();
+        SetButton();
     }
 
     private void Awake()
     {
+        SetButton();
+
         quitButton.onClick.AddListener(() =>
         {
             UIManager.Instance.ChangeToResultScreen();
             PrizeManager.Instance.ShowResultPrizes();
         });
+    }
+
+    private void SetButton()
+    {
+        quitButton = GetComponent<Button>();
     }
 }

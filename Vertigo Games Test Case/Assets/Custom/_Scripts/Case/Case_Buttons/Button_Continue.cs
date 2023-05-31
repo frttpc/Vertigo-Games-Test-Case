@@ -9,11 +9,13 @@ public class Button_Continue : MonoBehaviour
 
     private void OnValidate()
     {
-        continueButton = GetComponent<Button>();
+        SetButton();
     }
 
     private void Awake()
     {
+        SetButton();
+
         continueButton.onClick.AddListener(() =>
         {
             if (isDouble) InventoryManager.Instance.AddRewardsToInventory();
@@ -31,5 +33,10 @@ public class Button_Continue : MonoBehaviour
                 PrizeManager.Instance.ShowResultPrizes();
             }
         });
+    }
+
+    private void SetButton()
+    {
+        continueButton = GetComponent<Button>();
     }
 }

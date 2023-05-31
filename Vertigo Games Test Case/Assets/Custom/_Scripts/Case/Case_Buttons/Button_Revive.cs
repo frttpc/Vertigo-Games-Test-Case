@@ -13,13 +13,13 @@ public class Button_Revive : MonoBehaviour
 
     private void OnValidate()
     {
-        reviveButton = GetComponent<Button>();
-        reviveCostImage.sprite = reviveCostSO.prizeVisual;
-        reviveCostText.text = reviveCostAmount.ToString();
+        SetButton();
     }
 
     private void Awake()
     {
+        SetButton();
+
         reviveButton.onClick.AddListener(() => 
         {
             if(InventoryManager.Instance.TrySpend(reviveCostSO, reviveCostAmount))
@@ -31,5 +31,12 @@ public class Button_Revive : MonoBehaviour
                 UIManager.Instance.EnableWarning();
             }
         });
+    }
+
+    private void SetButton()
+    {
+        reviveButton = GetComponent<Button>();
+        reviveCostImage.sprite = reviveCostSO.prizeVisual;
+        reviveCostText.text = reviveCostAmount.ToString();
     }
 }

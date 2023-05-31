@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using Frttpc;
 
 public class Button_Spin : MonoBehaviour
 {
@@ -11,14 +7,21 @@ public class Button_Spin : MonoBehaviour
 
     private void OnValidate()
     {
-        spinButton = GetComponent<Button>();
+        SetButton();
     }
 
     private void Awake()
     {
+        SetButton();
+
         spinButton.onClick.AddListener(() =>
         {
             WheelManager.Instance.Spin();
         });
+    }
+
+    private void SetButton()
+    {
+        spinButton = GetComponent<Button>();
     }
 }
