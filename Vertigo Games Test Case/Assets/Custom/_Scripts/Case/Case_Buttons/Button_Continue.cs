@@ -16,23 +16,25 @@ public class Button_Continue : MonoBehaviour
     {
         SetButton();
 
-        continueButton.onClick.AddListener(() =>
-        {
-            if (isDouble) InventoryManager.Instance.AddRewardsToInventory();
+        continueButton.onClick.AddListener(ActivateButton);
+    }
 
-            if(ZonesManager.Instance.currentZone < 30)
-            {
-                UIManager.Instance.ChangeToSpinScreen();
-                ZonesManager.Instance.ChangeToNextZone();
-                WheelManager.Instance.ChangeWheelVisuals();
-                PrizeManager.Instance.ChangeToNextPrizePool();
-            }
-            else
-            {
-                UIManager.Instance.ChangeToResultScreen();
-                PrizeManager.Instance.ShowResultPrizes();
-            }
-        });
+    private void ActivateButton()
+    {
+        if (isDouble) InventoryManager.Instance.AddRewardsToInventory();
+
+        if (ZonesManager.Instance.currentZone < ZonesManager.maxZoneNumber)
+        {
+            UIManager.Instance.ChangeToSpinScreen();
+            ZonesManager.Instance.ChangeToNextZone();
+            WheelManager.Instance.ChangeWheelVisuals();
+            PrizeManager.Instance.ChangeToNextPrizePool();
+        }
+        else
+        {
+            UIManager.Instance.ChangeToResultScreen();
+            PrizeManager.Instance.ShowResultPrizes();
+        }
     }
 
     private void SetButton()

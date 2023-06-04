@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Frttpc;
 
-public class Button_Test : MonoBehaviour
+namespace TestCase
 {
-
-    void Start()
+    public class WheelSO : ScriptableObject
     {
-        
-    }
 
-    void Update()
-    {
-        
     }
 }
+

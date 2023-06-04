@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Frttpc;
 
 public class SceneManager : MonoBehaviour
 {
@@ -13,7 +9,7 @@ public class SceneManager : MonoBehaviour
         Instance = this;
     }
 
-    public static void RestartScene()
+    public void RestartScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }

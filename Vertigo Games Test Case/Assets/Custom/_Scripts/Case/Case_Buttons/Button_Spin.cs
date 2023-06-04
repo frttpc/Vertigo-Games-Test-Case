@@ -14,10 +14,12 @@ public class Button_Spin : MonoBehaviour
     {
         SetButton();
 
-        spinButton.onClick.AddListener(() =>
-        {
-            WheelManager.Instance.Spin();
-        });
+        spinButton.onClick.AddListener(ActivateButton);
+    }
+
+    private void ActivateButton()
+    {
+        WheelManager.Instance.Spin();
     }
 
     private void SetButton()

@@ -1,6 +1,6 @@
 {
-    "name": "TestCase",
-    "rootNamespace": "TestCase",
+    "name": "Case",
+    "rootNamespace": "Case",
     "references": [
         "GUID:355c49a4bb3742c4b87d6b9c068b5b10",
         "GUID:6055be8ebefd69e48b49212b09b47b2f"

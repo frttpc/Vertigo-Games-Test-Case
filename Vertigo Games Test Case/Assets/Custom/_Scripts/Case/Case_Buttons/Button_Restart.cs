@@ -16,7 +16,7 @@ public class Button_Restart : MonoBehaviour
     {
         SetButton();
 
-        restartButton.onClick.AddListener(SceneManager.RestartScene);
+        restartButton.onClick.AddListener(SceneManager.Instance.RestartScene);
     }
 
     private void SetButton()

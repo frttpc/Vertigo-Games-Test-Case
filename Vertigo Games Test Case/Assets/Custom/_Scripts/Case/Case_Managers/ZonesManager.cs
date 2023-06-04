@@ -16,6 +16,8 @@ public class ZonesManager : MonoBehaviour
     [SerializeField] [Range(0, 2)] private float switchDuration;
     [SerializeField] private Ease switchEase;
 
+    public const int maxZoneNumber = 30;
+    public const int silverZonePerNumber = 5;
     public int currentZone { get; private set; } = 0;
 
     public static ZonesManager Instance;
@@ -34,9 +36,9 @@ public class ZonesManager : MonoBehaviour
         {
             Vector3 pos = new (gapBetweenZones * (i-1), 0, 0);
 
-            if (i % 5 == 0 || i == 1)
+            if (i % silverZonePerNumber == 0 || i == 1)
             {
-                if (i == 30)
+                if (i == maxZoneNumber)
                 {
                     newZonePrefab = goldZonePrefab;
                 }
@@ -44,7 +46,6 @@ public class ZonesManager : MonoBehaviour
                 {
                     newZonePrefab = safeZonePrefab;
                 }
-
             }
             else
                 newZonePrefab = normalZonePrefab;

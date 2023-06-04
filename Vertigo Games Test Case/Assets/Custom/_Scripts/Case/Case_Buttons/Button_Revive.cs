@@ -20,17 +20,20 @@ public class Button_Revive : MonoBehaviour
     {
         SetButton();
 
-        reviveButton.onClick.AddListener(() => 
+        reviveButton.onClick.AddListener(ActivateButton);
+    }
+
+
+    private void ActivateButton()
+    {
+        if (InventoryManager.Instance.TrySpend(reviveCostSO, reviveCostAmount))
         {
-            if(InventoryManager.Instance.TrySpend(reviveCostSO, reviveCostAmount))
-            {
-                UIManager.Instance.ChangeToSpinScreen();
-            }
-            else
-            {
-                UIManager.Instance.EnableWarning();
-            }
-        });
+            UIManager.Instance.ChangeToSpinScreen();
+        }
+        else
+        {
+            UIManager.Instance.EnableWarning();
+        }
     }
 
     private void SetButton()

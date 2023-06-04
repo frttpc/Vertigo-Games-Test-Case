@@ -14,11 +14,13 @@ public class Button_Quit : MonoBehaviour
     {
         SetButton();
 
-        quitButton.onClick.AddListener(() =>
-        {
-            UIManager.Instance.ChangeToResultScreen();
-            PrizeManager.Instance.ShowResultPrizes();
-        });
+        quitButton.onClick.AddListener(ActivateButton);
+    }
+
+    private void ActivateButton()
+    {
+        UIManager.Instance.ChangeToResultScreen();
+        PrizeManager.Instance.ShowResultPrizes();
     }
 
     private void SetButton()
