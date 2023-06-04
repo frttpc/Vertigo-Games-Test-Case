@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Button_Restart : MonoBehaviour
+namespace Case
 {
-    private Button restartButton;
-
-    private void OnValidate()
+    public class Button_Restart : MonoBehaviour
     {
-        SetButton();
+        private Button restartButton;
+
+        private void OnValidate()
+        {
+            SetButton();
+        }
+
+        private void Awake()
+        {
+            SetButton();
+
+            restartButton.onClick.AddListener(SceneManager.Instance.RestartScene);
+        }
+
+        private void SetButton()
+        {
+            restartButton = GetComponent<Button>();
+        }
     }
 
-    private void Awake()
-    {
-        SetButton();
-
-        restartButton.onClick.AddListener(SceneManager.Instance.RestartScene);
-    }
-
-    private void SetButton()
-    {
-        restartButton = GetComponent<Button>();
-    }
 }

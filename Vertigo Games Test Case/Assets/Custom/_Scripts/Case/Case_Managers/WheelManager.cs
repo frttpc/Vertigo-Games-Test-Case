@@ -2,107 +2,130 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class WheelManager : MonoBehaviour
+namespace Case
 {
-    [SerializeField] private Image wheel_value;
-    [SerializeField] private Image pin_value;
-
-    [Header("Bronze Wheel")]
-    [SerializeField] private Sprite bronzeWheelSprite;
-    [SerializeField] private Sprite bronzePinSprite;
-
-    [Header("Silver Wheel")]
-    [SerializeField] private Sprite silverWheelSprite;
-    [SerializeField] private Sprite silverPinSprite;
-
-    [Header("Gold Wheel")]
-    [SerializeField] private Sprite goldWheelSprite;
-    [SerializeField] private Sprite goldPinSprite;
-
-    [Header("Wheel")]
-    [SerializeField] private Transform wheel;
-    [SerializeField] [Range(2, 5)] private int spinDuration;
-    [SerializeField] private Ease spinEase;
-
-    private Vector3 spinRotation = Vector3.forward * 360f;
-
-    private bool isSpinning;
-
-    public static WheelManager Instance;
-
-    private void Awake()
+    public class WheelManager : MonoBehaviour
     {
-        Instance = this;
-    }
+        [Header("Wheel")]
+        [SerializeField] private Transform wheel;
+        [SerializeField] [Range(2, 5)] private int spinDuration;
+        [SerializeField] private Ease spinEase;
 
-    public void Spin()
-    {
-        if (isSpinning) return;
+        [Header("Wheel Visuals")]
+        [SerializeField] private Image wheelImage_value;
+        [SerializeField] private Image pinImage_value;
+        [SerializeField] private Image spinButtonImage_value;
 
-        isSpinning = true;
+        [Header("Wheel SOs")]
+        [SerializeField] private WheelSO bronzeWheelSO;
+        [SerializeField] private WheelSO silverWheelSO;
+        [SerializeField] private WheelSO goldWheelSO;
 
-        PrizeManager.Instance.ChooseRandomPrizeFromCurrentPool();
-        int prizeIndex = PrizeManager.Instance.GetChosenPrizeIndex();
+        [Space]
+        [SerializeField] private Sprite nonClickableSpinButton;
+        private Sprite clickableSpinButton;
 
-        Vector3 targetRotation = spinRotation * spinDuration + new Vector3(0, 0, prizeIndex * 45f);
+        private Vector3 spinRotation = Vector3.forward * 360f;
 
-        wheel.DOLocalRotate(targetRotation, spinDuration, RotateMode.FastBeyond360)
-            .SetEase(spinEase)
-            .SetRelative()
-            .OnComplete(() =>
-            {
-                isSpinning = false;
+        private bool isSpinning;
 
-                UIManager.Instance.ChangeToCardScreen();
+        public static WheelManager Instance;
 
-                InventoryManager.Instance.AddRewardsToInventory();
-
-                ResetWheelRotation();
-            });
-    }
-
-    public void ChangeWheelVisuals()
-    {
-        int zoneNumber = ZonesManager.Instance.currentZone + 1;
-
-        if (zoneNumber % 5 == 0)
+        private void Awake()
         {
-            if(zoneNumber == 30)
+            Instance = this;
+        }
+
+        private void Start()
+        {
+            clickableSpinButton = spinButtonImage_value.sprite;
+        }
+
+        public void Spin()
+        {
+            if (isSpinning) return;
+
+            isSpinning = true;
+
+            ChangeButtonSpriteToNonclickable();
+
+            PrizeManager.Instance.ChooseRandomPrizeFromCurrentPool();
+            int prizeIndex = PrizeManager.Instance.GetChosenPrizeIndex();
+
+            Vector3 targetRotation = spinRotation * spinDuration + new Vector3(0, 0, prizeIndex * 45f);
+
+            wheel.DOLocalRotate(targetRotation, spinDuration, RotateMode.FastBeyond360)
+                .SetEase(spinEase)
+                .SetRelative()
+                .OnComplete(OnSpinComplete);
+        }
+
+        private void OnSpinComplete()
+        {
+            isSpinning = false;
+
+            ChangeButtonSpriteToClickable();
+
+            UIManager.Instance.ChangeToCardScreen();
+            
+            InventoryManager.Instance.AddRewardsToInventory();
+            
+            ResetWheelRotation();
+        }
+
+        public void ChangeWheelVisuals()
+        {
+            int zoneNumber = ZonesManager.Instance.currentZone + 1;
+
+            if (zoneNumber % ZonesManager.silverZonePerNumber == 0)
             {
-                TurnWheelGold();
+                if (zoneNumber == ZonesManager.maxZoneNumber)
+                {
+                    TurnWheelGold();
+                }
+                else
+                {
+                    TurnWheelSilver();
+                }
             }
             else
             {
-                TurnWheelSilver();
+                TurnWheelBronze();
             }
-
         }
-        else
+
+        public void ResetWheelRotation()
         {
-            TurnWheelBronze();
+            wheel.eulerAngles = Vector3.zero;
+        }
+
+        public void TurnWheelBronze()
+        {
+            wheelImage_value.sprite = bronzeWheelSO.wheelSprite;
+            pinImage_value.sprite = bronzeWheelSO.pinSprite;
+        }
+
+        public void TurnWheelSilver()
+        {
+            wheelImage_value.sprite = silverWheelSO.wheelSprite;
+            pinImage_value.sprite = silverWheelSO.pinSprite;
+        }
+
+        public void TurnWheelGold()
+        {
+            wheelImage_value.sprite = goldWheelSO.wheelSprite;
+            pinImage_value.sprite = goldWheelSO.pinSprite;
+        }
+
+        private void ChangeButtonSpriteToNonclickable()
+        {
+            spinButtonImage_value.sprite = nonClickableSpinButton;
+        }
+
+        private void ChangeButtonSpriteToClickable()
+        {
+            spinButtonImage_value.sprite = clickableSpinButton;
         }
     }
 
-    public void ResetWheelRotation()
-    {
-        wheel.eulerAngles = Vector3.zero;
-    }
-
-    public void TurnWheelBronze()
-    {
-        wheel_value.sprite = bronzeWheelSprite;
-        pin_value.sprite = bronzePinSprite;
-    }
-
-    public void TurnWheelSilver()
-    {
-        wheel_value.sprite = silverWheelSprite;
-        pin_value.sprite = silverPinSprite;
-    }
-
-    public void TurnWheelGold()
-    {
-        wheel_value.sprite = goldWheelSprite;
-        pin_value.sprite = goldPinSprite;
-    }
 }

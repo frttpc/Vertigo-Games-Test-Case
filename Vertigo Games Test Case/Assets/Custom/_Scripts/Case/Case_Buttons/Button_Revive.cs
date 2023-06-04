@@ -2,44 +2,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Button_Revive : MonoBehaviour
+namespace Case
 {
-    private Button reviveButton;
-
-    [SerializeField] private PrizeSO reviveCostSO;
-    [SerializeField] private int reviveCostAmount;
-    [SerializeField] private Image reviveCostImage;
-    [SerializeField] private TextMeshProUGUI reviveCostText;
-
-    private void OnValidate()
+    public class Button_Revive : MonoBehaviour
     {
-        SetButton();
-    }
+        private Button reviveButton;
 
-    private void Awake()
-    {
-        SetButton();
+        [SerializeField] private PrizeSO reviveCostSO;
+        [SerializeField] private int reviveCostAmount;
+        [SerializeField] private Image reviveCostImage;
+        [SerializeField] private TextMeshProUGUI reviveCostText;
 
-        reviveButton.onClick.AddListener(ActivateButton);
-    }
-
-
-    private void ActivateButton()
-    {
-        if (InventoryManager.Instance.TrySpend(reviveCostSO, reviveCostAmount))
+        private void OnValidate()
         {
-            UIManager.Instance.ChangeToSpinScreen();
+            SetButton();
         }
-        else
+
+        private void Awake()
         {
-            UIManager.Instance.EnableWarning();
+            SetButton();
+
+            reviveButton.onClick.AddListener(ActivateButton);
+        }
+
+
+        private void ActivateButton()
+        {
+            if (InventoryManager.Instance.TrySpend(reviveCostSO, reviveCostAmount))
+            {
+                UIManager.Instance.ChangeToSpinScreen();
+            }
+            else
+            {
+                UIManager.Instance.EnableWarning();
+            }
+        }
+
+        private void SetButton()
+        {
+            reviveButton = GetComponent<Button>();
+            reviveCostImage.sprite = reviveCostSO.prizeVisual;
+            reviveCostText.text = reviveCostAmount.ToString();
         }
     }
 
-    private void SetButton()
-    {
-        reviveButton = GetComponent<Button>();
-        reviveCostImage.sprite = reviveCostSO.prizeVisual;
-        reviveCostText.text = reviveCostAmount.ToString();
-    }
 }

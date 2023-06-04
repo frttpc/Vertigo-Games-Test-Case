@@ -5798,17 +5798,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e308b50de70e424a96b42eaf7acacef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheel_value: {fileID: 8296215824917117398}
-  pin_value: {fileID: 8296215823441875280}
-  bronzeWheelSprite: {fileID: 21300000, guid: 990774f94c97e1045b350b33308f6bee, type: 3}
-  bronzePinSprite: {fileID: 21300000, guid: eb480403fdce7a444a552feb7777a70d, type: 3}
-  silverWheelSprite: {fileID: 21300000, guid: fddbfb4927796ee46b1318c10890c486, type: 3}
-  silverPinSprite: {fileID: 21300000, guid: fbeaaa060f54e9e43b0a778d5969fefe, type: 3}
-  goldWheelSprite: {fileID: 21300000, guid: f577c72ac2d656947a0ccd4e85eafd8d, type: 3}
-  goldPinSprite: {fileID: 21300000, guid: 10b69ac3c09e0f14fb0e3b99bafefe15, type: 3}
   wheel: {fileID: 8296215823518571369}
   spinDuration: 4
   spinEase: 21
+  wheelImage_value: {fileID: 8296215824917117398}
+  pinImage_value: {fileID: 8296215823441875280}
+  spinButtonImage_value: {fileID: 8296215823227446117}
+  bronzeWheelSO: {fileID: 11400000, guid: 3972d3e4e5b5757498a73e3331934ab0, type: 2}
+  silverWheelSO: {fileID: 11400000, guid: 6bec292cc8a538141907b1cd996b078a, type: 2}
+  goldWheelSO: {fileID: 11400000, guid: 2959c3b5192710e46b841913a1eb7dc5, type: 2}
+  nonClickableSpinButton: {fileID: 21300000, guid: 1271153f29562204cbff6a9b77b514f0, type: 3}
 --- !u!4 &1781477696
 Transform:
   m_ObjectHideFlags: 0
@@ -8894,7 +8893,7 @@ GameObject:
   - component: {fileID: 8296215823227446116}
   - component: {fileID: 8296215823227446117}
   m_Layer: 0
-  m_Name: Button Image
+  m_Name: SpinButton_Image_value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9076,7 +9075,7 @@ GameObject:
   - component: {fileID: 8296215824434224448}
   - component: {fileID: 8296215824434224449}
   m_Layer: 0
-  m_Name: Button
+  m_Name: SpinButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

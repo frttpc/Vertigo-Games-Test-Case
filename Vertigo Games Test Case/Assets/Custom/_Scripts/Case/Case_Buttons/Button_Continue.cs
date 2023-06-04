@@ -1,44 +1,48 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Button_Continue : MonoBehaviour
+namespace Case
 {
-    private Button continueButton;
-
-    [SerializeField] private bool isDouble;
-
-    private void OnValidate()
+    public class Button_Continue : MonoBehaviour
     {
-        SetButton();
-    }
+        private Button continueButton;
 
-    private void Awake()
-    {
-        SetButton();
+        [SerializeField] private bool isDouble;
 
-        continueButton.onClick.AddListener(ActivateButton);
-    }
-
-    private void ActivateButton()
-    {
-        if (isDouble) InventoryManager.Instance.AddRewardsToInventory();
-
-        if (ZonesManager.Instance.currentZone < ZonesManager.maxZoneNumber)
+        private void OnValidate()
         {
-            UIManager.Instance.ChangeToSpinScreen();
-            ZonesManager.Instance.ChangeToNextZone();
-            WheelManager.Instance.ChangeWheelVisuals();
-            PrizeManager.Instance.ChangeToNextPrizePool();
+            SetButton();
         }
-        else
+
+        private void Awake()
         {
-            UIManager.Instance.ChangeToResultScreen();
-            PrizeManager.Instance.ShowResultPrizes();
+            SetButton();
+
+            continueButton.onClick.AddListener(ActivateButton);
+        }
+
+        private void ActivateButton()
+        {
+            if (isDouble) InventoryManager.Instance.AddRewardsToInventory();
+
+            if (ZonesManager.Instance.currentZone < ZonesManager.maxZoneNumber)
+            {
+                UIManager.Instance.ChangeToSpinScreen();
+                ZonesManager.Instance.ChangeToNextZone();
+                WheelManager.Instance.ChangeWheelVisuals();
+                PrizeManager.Instance.ChangeToNextPrizePool();
+            }
+            else
+            {
+                UIManager.Instance.ChangeToResultScreen();
+                PrizeManager.Instance.ShowResultPrizes();
+            }
+        }
+
+        private void SetButton()
+        {
+            continueButton = GetComponent<Button>();
         }
     }
 
-    private void SetButton()
-    {
-        continueButton = GetComponent<Button>();
-    }
 }

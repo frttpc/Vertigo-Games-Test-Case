@@ -1,29 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Button_Spin : MonoBehaviour
+namespace Case
 {
-    private Button spinButton;
-
-    private void OnValidate()
+    public class Button_Spin : MonoBehaviour
     {
-        SetButton();
-    }
+        private Button spinButton;
 
-    private void Awake()
-    {
-        SetButton();
+        private void OnValidate()
+        {
+            SetButton();
+        }
 
-        spinButton.onClick.AddListener(ActivateButton);
-    }
+        private void Awake()
+        {
+            SetButton();
 
-    private void ActivateButton()
-    {
-        WheelManager.Instance.Spin();
-    }
+            spinButton.onClick.AddListener(ActivateButton);
+        }
 
-    private void SetButton()
-    {
-        spinButton = GetComponent<Button>();
+        private void ActivateButton()
+        {
+            WheelManager.Instance.Spin();
+        }
+
+        private void SetButton()
+        {
+            spinButton = GetComponent<Button>();
+        }
     }
 }

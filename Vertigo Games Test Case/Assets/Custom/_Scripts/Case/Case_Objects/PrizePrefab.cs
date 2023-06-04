@@ -2,20 +2,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PrizePrefab : MonoBehaviour
+namespace Case
 {
-    [SerializeField] private Image prizeImage_value;
-    [SerializeField] private TextMeshProUGUI prizeText_value;
-
-    public void SetPrizeValues(Sprite prizeImage, int prizeAmount)
+    public class PrizePrefab : MonoBehaviour
     {
-        prizeImage_value.sprite = prizeImage;
+        [SerializeField] private Image prizeImage_value;
+        [SerializeField] private TextMeshProUGUI prizeText_value;
 
-        string amount = prizeAmount.ToString();
+        public void SetPrizeValues(Sprite prizeImage, int prizeAmount)
+        {
+            prizeImage_value.sprite = prizeImage;
 
-        if (prizeAmount == 1)
-            amount = "";
+            string amount = prizeAmount.ToString();
 
-        prizeText_value.text = amount;
+            if (prizeAmount == 1)
+                amount = "";
+
+            prizeText_value.text = amount;
+        }
     }
 }
+

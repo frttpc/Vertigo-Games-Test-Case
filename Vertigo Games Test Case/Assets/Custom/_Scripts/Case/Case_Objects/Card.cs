@@ -2,14 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Card : MonoBehaviour
+namespace Case
 {
-    [SerializeField] private Image cardImage;
-    [SerializeField] private TextMeshProUGUI cardText;
-
-    public void SetCardValues(Sprite prizeImage, int prizeAmount)
+    public class Card : MonoBehaviour
     {
-        cardImage.sprite = prizeImage;
-        cardText.text = prizeAmount.ToString();
+        [SerializeField] private Image cardImage;
+        [SerializeField] private TextMeshProUGUI cardText;
+
+        public void SetCardValues(Sprite prizeImage, int prizeAmount)
+        {
+            cardImage.sprite = prizeImage;
+            cardText.text = prizeAmount.ToString();
+        }
     }
 }
+

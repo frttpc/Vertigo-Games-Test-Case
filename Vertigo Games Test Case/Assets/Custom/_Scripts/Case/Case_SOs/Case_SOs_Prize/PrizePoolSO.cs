@@ -1,20 +1,18 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PrizePoolSO", menuName = "Scriptable Objects/PrizePool")]
-public class PrizePoolSO : ScriptableObject
+namespace Case
 {
-    public Prize[] prizePool = new Prize[8];
+    [CreateAssetMenu(fileName = "PrizePoolSO", menuName = "Scriptable Objects/PrizePool")]
+    public class PrizePoolSO : ScriptableObject
+    {
+        public Prize[] prizePool = new Prize[8];
+    }
+
+    [System.Serializable]
+    public struct Prize
+    {
+        public PrizeSO prizeSO;
+        public int dropAmount;
+    }
 }
 
-[System.Serializable]
-public struct Prize
-{
-    public PrizeSO prizeSO;
-    public int dropAmount;
-}
-
-public enum RewardType
-{
-    Bomb,
-    Prize
-}

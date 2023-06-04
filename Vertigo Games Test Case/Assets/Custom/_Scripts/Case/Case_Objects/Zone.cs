@@ -1,12 +1,16 @@
 using UnityEngine;
 using TMPro;
 
-public class Zone : MonoBehaviour
+namespace Case
 {
-    [SerializeField] private TextMeshProUGUI zoneNumber;
-
-    public void SetZoneNumber(int number)
+    public class Zone : MonoBehaviour
     {
-        zoneNumber.text = number.ToString();
+        [SerializeField] private TextMeshProUGUI zoneNumber;
+
+        public void SetZoneNumber(int number)
+        {
+            zoneNumber.text = number.ToString();
+        }
     }
 }
+

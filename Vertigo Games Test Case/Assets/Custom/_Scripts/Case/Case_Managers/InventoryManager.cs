@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TestCase
+namespace Case
 {
     public class InventoryManager : MonoBehaviour
     {
