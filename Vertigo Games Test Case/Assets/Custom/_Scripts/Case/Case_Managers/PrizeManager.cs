@@ -87,7 +87,6 @@ namespace Case
                 newResultPrize.SetPrizeValues(key.prizeVisual, InventoryManager.Instance.inventory[key]);
             }
         }
-
     }
 
 }

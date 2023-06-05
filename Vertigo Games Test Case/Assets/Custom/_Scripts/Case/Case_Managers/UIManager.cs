@@ -22,7 +22,8 @@ namespace Case
 
         [Header("Buttons")]
         [SerializeField] private GameObject quitButton;
-        [SerializeField] private GameObject rewardButtons;
+        [SerializeField] private GameObject defaultRewardButtons;
+        [SerializeField] private GameObject specialRewardButtons;
         [SerializeField] private GameObject failButtons;
 
         [Header("Warning")]
@@ -90,18 +91,6 @@ namespace Case
             failButtons.SetActive(false);
         }
 
-        private void ActivateWinScenerio()
-        {
-            prizeText.SetActive(true);
-            rewardButtons.SetActive(true);
-        }
-
-        private void DeactivateWinScenerio()
-        {
-            prizeText.SetActive(false);
-            rewardButtons.SetActive(false);
-        }
-
         private void EnableGoldCard(Prize prize)
         {
             goldPrizeCard.gameObject.SetActive(true);
@@ -148,7 +137,7 @@ namespace Case
             }
             else
             {
-                ActivateWinScenerio();
+                prizeText.SetActive(true);
 
                 if (zoneNumber % ZonesManager.silverZonePerNumber == 0 || zoneNumber == 1)
                 {
@@ -162,11 +151,13 @@ namespace Case
                         quitButton.SetActive(true);
                     }
 
+                    specialRewardButtons.SetActive(true);
                     EditNextSilverZone();
                 }
                 else
                 {
                     EnableDefaultCard(prize);
+                    defaultRewardButtons.SetActive(true);
                 }
             }
         }
@@ -174,11 +165,24 @@ namespace Case
         private void DeactivateAll()
         {
             DeactivateLoseScenerio();
-            DeactivateWinScenerio();
+            DeactivateCards();
+            DeactivateButtons();
+
+            prizeText.SetActive(false);
+            quitButton.SetActive(false);
+        }
+
+        private void DeactivateButtons()
+        {
+            defaultRewardButtons.SetActive(false);
+            specialRewardButtons.SetActive(false);
+        }
+
+        private void DeactivateCards()
+        {
             defaultPrizeCard.gameObject.SetActive(false);
             silverPrizeCard.gameObject.SetActive(false);
             goldPrizeCard.gameObject.SetActive(false);
-            quitButton.SetActive(false);
         }
 
         public void EditNextSilverZone()
