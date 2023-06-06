@@ -13,7 +13,16 @@ namespace Case
     public enum RewardType
     {
         Bomb,
-        Prize
+        AdrenalineShot,
+        HealthShot,
+        Pills,
+        C4,
+        Cash,
+        Gold,
+        ElectricGrenade,
+        EmpGrenade,
+        M67Grenade,
+        Snowball
     }
 }
 

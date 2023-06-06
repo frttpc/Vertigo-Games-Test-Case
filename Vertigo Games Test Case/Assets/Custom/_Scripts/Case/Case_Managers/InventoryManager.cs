@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Case
@@ -9,7 +10,7 @@ namespace Case
         [SerializeField] private PrizeSO goldSO;
         [SerializeField] private PrizeSO bombSO;
 
-        public readonly Dictionary<PrizeSO, int> inventory = new();
+        public readonly Dictionary<string, Prize> inventory = new(StringComparer.OrdinalIgnoreCase);
 
         public static InventoryManager Instance;
 
@@ -20,8 +21,8 @@ namespace Case
 
         private void Start()
         {
-            inventory.Add(goldSO, 0);
-            inventory.Add(moneySO, 0);
+            inventory.Add(goldSO.rewardType.ToString(), new Prize(goldSO, 0));
+            inventory.Add(moneySO.rewardType.ToString(), new Prize(moneySO, 0));
         }
 
         public void AddRewardsToInventory()
@@ -30,13 +31,13 @@ namespace Case
 
             if (reward.prizeSO == bombSO) return;
 
-            if (inventory.ContainsKey(reward.prizeSO))
+            if (inventory.ContainsKey(reward.prizeSO.rewardType.ToString()))
             {
-                inventory[reward.prizeSO] += reward.dropAmount;
+                inventory[reward.prizeSO.rewardType.ToString()] += reward;
             }
             else
             {
-                inventory.Add(reward.prizeSO, reward.dropAmount);
+                inventory.Add(reward.prizeSO.rewardType.ToString(), reward);
             }
 
             CheckToIncreaseCurrency(reward);
@@ -48,15 +49,15 @@ namespace Case
                 UIManager.Instance.EditCurrency();
         }
 
-        public int GetMoney() => inventory[moneySO];
+        public int GetMoney() => inventory[moneySO.rewardType.ToString()].dropAmount;
 
-        public int GetGold() => inventory[goldSO];
+        public int GetGold() => inventory[goldSO.rewardType.ToString()].dropAmount;
 
         public bool TrySpend(PrizeSO prizeSO, int amount)
         {
-            if (inventory[prizeSO] > amount)
+            if (inventory[prizeSO.rewardType.ToString()].dropAmount > amount)
             {
-                inventory[prizeSO] -= amount;
+                inventory[prizeSO.rewardType.ToString()] -= new Prize(prizeSO, amount);
                 UIManager.Instance.EditCurrency();
                 return true;
             }
@@ -64,5 +65,4 @@ namespace Case
                 return false;
         }
     }
-
 }

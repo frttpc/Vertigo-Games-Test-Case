@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: Healthshot
   prizeVisual: {fileID: 21300000, guid: 15bb575bea35cca40979ceb1ce68acca, type: 3}
-  rewardType: 1
+  rewardType: 2

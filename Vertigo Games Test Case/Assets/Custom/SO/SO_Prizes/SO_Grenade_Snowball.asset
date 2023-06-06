@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prizeName: Grenade_Snowball
   prizeVisual: {fileID: 21300000, guid: ade194fb060160e4f8ea75e32aada485, type: 3}
-  rewardType: 1
+  rewardType: 10

@@ -79,14 +79,18 @@ namespace Case
 
         public void ShowResultPrizes()
         {
-            Dictionary<PrizeSO, int>.KeyCollection keys = InventoryManager.Instance.inventory.Keys;
+            Dictionary<string, Prize>.KeyCollection keys = InventoryManager.Instance.inventory.Keys;
 
             foreach (var key in keys)
             {
+                Prize prize = InventoryManager.Instance.inventory[key];
+
                 PrizePrefab newResultPrize = Instantiate(resultPrizePrefab, resultPrizeParent);
-                newResultPrize.SetPrizeValues(key.prizeVisual, InventoryManager.Instance.inventory[key]);
+                newResultPrize.SetPrizeValues(
+                    prize.prizeSO.prizeVisual, 
+                    prize.dropAmount
+                    );
             }
         }
     }
-
 }
